@@ -3,7 +3,7 @@
 //which can be used by both the memory controller as well as the memory.
 //Basic assertions included within the interface check for timing violations
 //Author: 	Ananth Bhat
-//			Sriram VB
+//		Sriram VB
 interface DDR4Interface
 #(
 	`include "Definitions.pkg"
@@ -59,23 +59,19 @@ assign reset_n = ~reset;
 
 //Modport Definitions
 modport Memory	(
-					import IsActivate, IsRefresh, IsWrite, IsRead, IsWriteA, IsReadA, IsPrePreA,
-					import ReadRowBank, ReadColumnBank,
-					input  cke,cs_n,dm_n,udm_n,ldm_n,odt,
-						   par,reset_n,ten,pin_A,act_n,bg,
-						   b,clk_t,clk_c,clock,
-					output alert_n,tdqs_t,tdws_c,dq_m,
-					inout  pin_dq,dbi_n,udbi_n,ldbi_n,dqs_t,dqs_c
-				);
+			import IsActivate, IsRefresh, IsWrite, IsRead, IsWriteA, IsReadA, IsPrePreA,
+			import ReadRowBank, ReadColumnBank,
+			input  cke,cs_n,dm_n,udm_n,ldm_n,odt, par,reset_n,ten,pin_A,act_n,bg, b,clk_t,clk_c,clock,
+			output alert_n,tdqs_t,tdws_c,dq_m,
+			inout  pin_dq,dbi_n,udbi_n,ldbi_n,dqs_t,dqs_c
+		);
 
 modport Controller	(
-						import 	ACT,MRS,REF,PRE,PREA,WR,RD,WRA,RDA,NOP,DES,	
-						output 	cke,cs_n,dm_n,udm_n,ldm_n,odt,
-						   		par,ten,pin_A,act_n,bg,
-						   		b,clk_t,clk_c,dq_c,
-						input 	alert_n,tdqs_t,tdws_c,reset_n,
-						inout  	pin_dq,dbi_n,udbi_n,ldbi_n,dqs_t,dqs_c
-					);
+				import 	ACT,MRS,REF,PRE,PREA,WR,RD,WRA,RDA,NOP,DES,	
+				output 	cke,cs_n,dm_n,udm_n,ldm_n,odt, par,ten,pin_A,act_n,bg, b,clk_t,clk_c,dq_c,
+				input 	alert_n,tdqs_t,tdws_c,reset_n,
+				inout  	pin_dq,dbi_n,udbi_n,ldbi_n,dqs_t,dqs_c
+			);
 
 /**************************CONTROLLER METHODS**********************************/
 //Bank Activate
@@ -108,8 +104,7 @@ function automatic void REF();
 endfunction
 
 //Precharge
-function automatic void PRE (input 	logic [BG_BITS-1:0] bankgrp,
-							 		logic [B_BITS-1:0] bank);
+	function automatic void PRE (input logic [BG_BITS-1:0] bankgrp, logic [B_BITS-1:0] bank);
 	$display($time, "\tPRECHARGE");
 	{cke,act_n,`CAS} = `HIGH;
 	{cs_n,`RAS,`WE,`AP} = LOW;
@@ -125,8 +120,9 @@ endfunction
 
 //Write
 function automatic void WR (input logic [9:0] col_add,
-								  logic [BG_BITS-1:0] bankgrp,
-							 	  logic [B_BITS-1:0] bank);
+				  logic [BG_BITS-1:0] bankgrp,
+				  logic [B_BITS-1:0] bank
+			   );
 	$display($time, "\tWRITE");	
 	{cke,act_n,`RAS} = `HIGH;
 	{cs_n,`CAS,`WE,`AP} = LOW;
@@ -136,8 +132,9 @@ endfunction
 
 //Read
 function automatic void RD (input logic [9:0] col_add,
-								  logic [BG_BITS-1:0] bankgrp,
-							 	  logic [B_BITS-1:0] bank);
+				  logic [BG_BITS-1:0] bankgrp,
+				  logic [B_BITS-1:0] bank
+			   );
 
 	$display($time, "\tREAD");	
 	{cke,act_n,`RAS,`WE} = `HIGH;
@@ -148,8 +145,9 @@ endfunction
 
 //Write with Precharge 
 function automatic void WRA (input logic [9:0] col_add,
-								  logic [BG_BITS-1:0] bankgrp,
-							 	  logic [B_BITS-1:0] bank);
+				   logic [BG_BITS-1:0] bankgrp,
+				   logic [B_BITS-1:0] bank
+			    );
 	$display($time, "\tWRITE WITH PRECHARGE\tColumn Address:%b",col_add);	
 	{cke,act_n,`RAS,`AP} = `HIGH;
 	{cs_n,`CAS,`WE} = LOW;
@@ -159,8 +157,9 @@ endfunction
 
 //Read with Precharge
 function automatic void RDA (input logic [9:0] col_add,
-								  logic [BG_BITS-1:0] bankgrp,
-							 	  logic [B_BITS-1:0] bank);
+				   logic [BG_BITS-1:0] bankgrp,
+				   logic [B_BITS-1:0] bank
+			    );
 
 	$display($time, "\tREAD WITH PRECHARGE");	
 	{cke,act_n,`RAS,`WE,`AP} = `HIGH;
