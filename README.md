@@ -27,7 +27,7 @@ This will automatically create a library, compile the files and simulate the pro
 The make file has been created with respect to QuestaSim.
 
 
-The contribution of each memeber is given below:
+#### The contribution of each memeber is given below:
 
 Ananth Bhat: MemoryController.sv, DDR4Interface.sv, ReadWrite.sv, ShiftReg.sv,C2MInterface.sv
 
