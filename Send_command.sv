@@ -19,7 +19,6 @@ full_xrtl<=IF.full;
 IF.data_tran<=data;
 IF.addr<=addr;
 IF.rw<=rw;
-//tag_out<=tag;
 ack_xrtl<=ack;
 if(IF.reset)
 	state<=init;
