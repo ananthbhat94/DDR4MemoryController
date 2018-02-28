@@ -26,6 +26,8 @@ A make file has been provided. To run the project, make sure QuestaSim is instal
 This will automatically create a library, compile the files and simulate the project.
 The make file has been created with respect to QuestaSim.
 
+### Copyrights
+Anyone who wishes to use this project and modify it can do so with but with permission from the authors. Please have a look at the license file included within the poject and make sure it is always included in all future versions of the project.
 
 #### The contribution of each memeber is given below:
 
